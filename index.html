@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>امتحان الصف الأول الثانوي علوم متكاملة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Cairo", sans-serif;
+      }
+
+      /* Custom styles for RTL layout */
+      .rtl-input {
+        text-align: right;
+      }
+
+      /* Exam paper style similar to the PDF */
+      .exam-paper {
+        background-color: #ffffff;
+      }
+
+      .question-number {
+        background-color: #2c5282;
+        color: white;
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-weight: bold;
+      }
+
+      .essay-question-number {
+        background-color: #2d3748;
+        color: white;
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-weight: bold;
+      }
+
+      .choice-letter {
+        background-color: #e2e8f0;
+        width: 26px;
+        height: 26px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+
+      /* Image resize handles */
+      .resizable-image {
+        position: relative;
+        display: inline-block;
+        margin: 5px 0;
+      }
+
+      .resize-handle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #3b82f6;
+        border: 1px solid white;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.2s;
+        z-index: 10;
+      }
+
+      .resizable-image:hover .resize-handle {
+        opacity: 1;
+      }
+
+      .resize-handle-tl {
+        top: -5px;
+        left: -5px;
+        cursor: nwse-resize;
+      }
+
+      .resize-handle-tr {
+        top: -5px;
+        right: -5px;
+        cursor: nesw-resize;
+      }
+
+      .resize-handle-bl {
+        bottom: -5px;
+        left: -5px;
+        cursor: nesw-resize;
+      }
+
+      .resize-handle-br {
+        bottom: -5px;
+        right: -5px;
+        cursor: nwse-resize;
+      }
+
+      /* Print styles - UPDATED */
+      @media print {
+        @page {
+          margin-top: 10px !important;
+          margin-bottom: 10px !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          padding: 0 !important;
+        }
+
+        body {
+          margin: 0 !important;
+          padding: 0 !important;
+          border: none !important;
+          box-shadow: none !important;
+          background: white !important;
+        }
+
+        .no-print {
+          display: none !important;
+        }
+
+        .exam-print-view {
+          border: none !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          box-shadow: none !important;
+          background: white !important;
+        }
+
+        .question-container {
+          page-break-inside: avoid;
+          margin-bottom: 15px;
+          border: none !important;
+          box-shadow: none !important;
+        }
+
+        .choice-item {
+          border: none !important;
+          box-shadow: none !important;
+        }
+
+        .answer-area {
+          display: block !important;
+          margin-top: 20px;
+          padding-top: 10px;
+          min-height: 100px;
+        }
+
+        .exam-info-print {
+          display: flex !important;
+          justify-content: space-between;
+          margin-bottom: 15px;
+          padding-bottom: 5px;
+          border-bottom: 2px solid #000 !important;
+        }
+
+        /* Remove all shadows and borders */
+        * {
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+
+        .exam-paper {
+          box-shadow: none !important;
+          border: none !important;
+        }
+
+        .question-text,
+        .choice-text {
+          border: none !important;
+          box-shadow: none !important;
+          background: transparent !important;
+        }
+
+        /* Hide header and footer text */
+        header,
+        footer,
+        .header-text,
+        .footer-text {
+          display: none !important;
+        }
+      }
+
+      /* Smooth transitions */
+      .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a1a1a1;
+      }
+
+      /* MCQ answers in same line */
+      .choice-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .choice-option {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        padding: 5px;
+        border-radius: 4px;
+        min-width: fit-content;
+      }
+
+      .choice-content {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      /* For image-only choices */
+      .image-choice {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .choice-text-only {
+        padding: 5px;
+        text-align: start;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen" dir="rtl">
+    <div class="container mx-auto p-4">
+      <!-- Header Section -->
+      <header class="mb-8 text-center no-print header-text">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">منشئ الامتحانات</h1>
+        <p class="text-gray-600">أنشئ، حرّر، واحفظ امتحاناتك بسهولة</p>
+      </header>
+
+      <!-- Main Application Container -->
+      <div class="flex flex-col lg:flex-row gap-6">
+        <!-- Left Panel: Exam Management -->
+        <div class="lg:w-1/4 no-print">
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">
+              إدارة الامتحان
+            </h2>
+
+            <!-- Exam Name Input -->
+            <div class="mb-6">
+              <label class="block text-gray-700 mb-2 font-medium"
+                >اسم الامتحان *</label
+              >
+              <input
+                type="text"
+                id="examName"
+                class="w-full p-3 border border-gray-300 rounded-lg rtl-input focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="أدخل اسم الامتحان"
+              />
+              <p id="examNameError" class="text-red-500 text-sm mt-1 hidden">
+                اسم الامتحان مطلوب
+              </p>
+            </div>
+
+            <!-- Exam Details -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div>
+                <label class="block text-gray-700 mb-2 text-sm font-medium"
+                  >المدة (دقيقة)</label
+                >
+                <input
+                  type="number"
+                  id="examDuration"
+                  class="w-full p-2 border border-gray-300 rounded-lg rtl-input"
+                  value="90"
+                  min="1"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-700 mb-2 text-sm font-medium"
+                  >الدرجة الكلية</label
+                >
+                <input
+                  type="number"
+                  id="examTotalMarks"
+                  class="w-full p-2 border border-gray-300 rounded-lg rtl-input"
+                  value="50"
+                  min="1"
+                />
+              </div>
+            </div>
+
+            <!-- Exam Date Input -->
+            <div class="mb-6">
+              <label class="block text-gray-700 mb-2 text-sm font-medium"
+                >تاريخ الامتحان</label
+              >
+              <input
+                type="date"
+                id="examDate"
+                class="w-full p-2 border border-gray-300 rounded-lg rtl-input"
+              />
+            </div>
+
+            <!-- Exam Actions -->
+            <div class="space-y-3 mb-6">
+              <button
+                id="addQuestionBtn"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+              >
+                <i class="fas fa-plus"></i>
+                إضافة سؤال جديد
+              </button>
+
+              <button
+                id="saveExamBtn"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+              >
+                <i class="fas fa-save"></i>
+                حفظ الامتحان
+              </button>
+
+              <button
+                id="printExamBtn"
+                class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+              >
+                <i class="fas fa-print"></i>
+                طباعة الامتحان
+              </button>
+
+              <button
+                id="clearAllBtn"
+                class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+              >
+                <i class="fas fa-trash-alt"></i>
+                حذف جميع الأسئلة
+              </button>
+            </div>
+
+            <!-- Saved Exams Section -->
+            <div>
+              <h3 class="text-lg font-bold text-gray-800 mb-3">
+                الامتحانات المحفوظة
+              </h3>
+
+              <div class="mb-4">
+                <input
+                  type="text"
+                  id="searchExam"
+                  class="w-full p-2 border border-gray-300 rounded-lg rtl-input mb-3"
+                  placeholder="بحث عن امتحان..."
+                />
+              </div>
+
+              <div
+                id="savedExamsList"
+                class="space-y-2 max-h-60 overflow-y-auto p-2 border border-gray-200 rounded-lg"
+              >
+                <!-- Saved exams will appear here -->
+                <p class="text-gray-500 text-center py-4">
+                  لا توجد امتحانات محفوظة
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructions -->
+          <div class="bg-blue-50 rounded-xl shadow p-5 no-print">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">
+              إرشادات الاستخدام
+            </h3>
+            <ul class="text-gray-700 space-y-2 text-sm">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-mouse-pointer text-blue-600 mt-1"></i>
+                <span
+                  >انقر نقرًا مزدوجًا على نص السؤال أو الخيارات للتحرير</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-image text-blue-600 mt-1"></i>
+                <span
+                  >اسحب أركان الصورة لتغيير حجمها. اضغط على CTRL للحفاظ على
+                  النسبة</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-images text-blue-600 mt-1"></i>
+                <span
+                  >يمكن أن تكون خيارات كل سؤال MCQ صورًا أو نصوصًا (تغيير منفصل
+                  لكل سؤال)</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-file-alt text-blue-600 mt-1"></i>
+                <span
+                  >يتم عرض الأسئلة المقالية في نهاية الامتحان بترقيم منفصل</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-print text-blue-600 mt-1"></i>
+                <span>ستتم إزالة جميع الحدود والظلال تلقائيًا عند الطباعة</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right Panel: Exam Content -->
+        <div class="lg:w-3/4">
+          <div
+            id="examContent"
+            class="exam-paper rounded-lg p-6 exam-print-view min-h-[600px]"
+          >
+            <!-- Exam header for print -->
+            <div id="examPrintHeader" class="mb-6 hidden print:block">
+              <h2
+                id="printExamName"
+                class="text-2xl font-bold mb-2 text-center"
+              >
+                امتحان الصف الأول الثانوي علوم متكاملة
+              </h2>
+              <div
+                class="exam-info-print hidden print:flex justify-between text-gray-800 text-sm mt-2"
+              >
+                <div>التاريخ: <span id="printDate"></span></div>
+                <div>المدة: <span id="printDuration"></span> دقيقة</div>
+                <div>الدرجة الكلية: <span id="printTotalMarks"></span></div>
+              </div>
+              <div class="border-b-2 border-gray-800 my-3"></div>
+              <h4 class="font-bold text-lg mb-4">اختر الإجابة الصحيحة</h4>
+            </div>
+
+            <!-- Exam header for edit view -->
+            <div class="mb-6 no-print">
+              <div id="examEditHeader" class="flex flex-col items-center">
+                <h2
+                  id="examTitleDisplay"
+                  class="text-2xl font-bold mb-2 text-gray-800 text-center"
+                >
+                  امتحان الصف الأول الثانوي علوم متكاملة
+                </h2>
+                <div class="flex gap-6 text-gray-600 text-sm mt-2">
+                  <div>التاريخ: <span id="currentDateDisplay"></span></div>
+                  <div>المدة: <span id="durationDisplay"></span> دقيقة</div>
+                  <div>الدرجة الكلية: <span id="totalMarksDisplay"></span></div>
+                </div>
+              </div>
+              <div class="border-b-2 border-gray-300 my-4"></div>
+              <h4 class="font-bold text-lg mb-4">اختر الإجابة الصحيحة</h4>
+            </div>
+
+            <!-- MCQ Questions Section -->
+            <div id="mcqQuestionsContainer" class="space-y-8">
+              <!-- Default empty state -->
+              <div id="emptyState" class="text-center py-12 text-gray-500">
+                <i class="fas fa-file-alt text-4xl mb-4"></i>
+                <p class="text-lg">لا توجد أسئلة بعد</p>
+                <p class="text-sm mt-2">
+                  انقر على زر "إضافة سؤال جديد" لبدء إنشاء الامتحان
+                </p>
+              </div>
+            </div>
+
+            <!-- Essay Questions Section -->
+            <div id="essayQuestionsSection" class="mt-12 hidden">
+              <div class="border-t-2 border-gray-300 pt-6">
+                <h3 class="text-lg font-bold mb-4">
+                  - أجب عن كلا مما يأتي مع توضيح خطوات الحل -
+                </h3>
+                <div id="essayQuestionsContainer" class="space-y-8 mt-6">
+                  <!-- Essay questions will appear here -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Final footer with teacher name -->
+            <div
+              id="examFooter"
+              class="text-center pt-2 border-t border-gray-300"
+            >
+              <p class="text-gray-700 mb-2">
+                مع تمنياتنا بدوام التوفيق والنجاح
+              </p>
+              <div class="editable-text inline-block p-2" id="teacherName">
+                أ/ فاطمة ريان
+              </div>
+              <p class="print-only hidden" id="printTeacherName">
+                أ/ فاطمة ريان
+              </p>
+            </div>
+          </div>
+
+          <!-- Question Count -->
+          <div class="mt-4 text-gray-600 no-print">
+            <p>
+              عدد الأسئلة: <span id="questionCount">0</span> (أسئلة MCQ:
+              <span id="mcqCount">0</span>، أسئلة مقالية:
+              <span id="essayCount">0</span>)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer
+        class="mt-8 text-center text-gray-500 text-sm no-print footer-text"
+      >
+        <p>
+          منشئ الامتحانات - تم التطوير باستخدام HTML و Tailwind CSS و JavaScript
+        </p>
+        <p class="mt-1">يتم حفظ جميع البيانات محليًا في المتصفح</p>
+      </footer>
+    </div>
+
+    <!-- Image Upload Modal -->
+    <div
+      id="imageUploadModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md mx-4">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-gray-800">إضافة صورة</h3>
+          <button
+            id="closeImageModal"
+            class="text-gray-500 hover:text-gray-700"
+          >
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-gray-700 mb-2">رابط الصورة (URL)</label>
+          <input
+            type="text"
+            id="imageUrlInput"
+            class="w-full p-3 border border-gray-300 rounded-lg rtl-input"
+            placeholder="https://example.com/image.jpg"
+          />
+          <p class="text-gray-500 text-sm mt-2">
+            أدخل رابط الصورة مباشرة من الإنترنت
+          </p>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-gray-700 mb-2">أو اختر صورة من الجهاز</label>
+          <input
+            type="file"
+            id="imageFileInput"
+            accept="image/*"
+            class="w-full p-2 border border-gray-300 rounded-lg"
+          />
+        </div>
+
+        <div class="flex justify-end gap-3">
+          <button
+            id="cancelImageBtn"
+            class="px-4 py-2 text-gray-700 hover:text-gray-900"
+          >
+            إلغاء
+          </button>
+          <button
+            id="addImageBtn"
+            class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+          >
+            إضافة
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ============================================
+      // State Management
+      // ============================================
+      const examState = {
+        name: "",
+        duration: 90,
+        totalMarks: 50,
+        examDate: null,
+        teacherName: "أ/ فاطمة ريان",
+        questions: [],
+        nextQuestionId: 1,
+        currentImageTarget: null,
+        isCtrlPressed: false,
+      };
+
+      // ============================================
+      // LocalStorage Management
+      // ============================================
+      const storageManager = {
+        saveExam: function () {
+          if (!examState.name.trim()) {
+            document.getElementById("examNameError").classList.remove("hidden");
+            document.getElementById("examName").focus();
+            return false;
+          }
+
+          const examData = {
+            name: examState.name,
+            duration: examState.duration,
+            totalMarks: examState.totalMarks,
+            examDate: examState.examDate,
+            teacherName: examState.teacherName,
+            questions: examState.questions,
+            lastModified: new Date().toISOString(),
+          };
+
+          const savedExams = JSON.parse(localStorage.getItem("exams")) || {};
+          savedExams[examState.name] = examData;
+          localStorage.setItem("exams", JSON.stringify(savedExams));
+
+          this.loadExamsList();
+          return true;
+        },
+
+        loadExam: function (examName) {
+          const savedExams = JSON.parse(localStorage.getItem("exams")) || {};
+          const examData = savedExams[examName];
+
+          if (examData) {
+            examState.name = examData.name;
+            examState.duration = examData.duration;
+            examState.totalMarks = examData.totalMarks;
+            examState.examDate = examData.examDate || null;
+            examState.teacherName = examData.teacherName || "أ/ فاطمة ريان";
+            examState.questions = examData.questions;
+
+            document.getElementById("examName").value = examData.name;
+            document.getElementById("examDuration").value = examData.duration;
+            document.getElementById("examTotalMarks").value =
+              examData.totalMarks;
+            document.getElementById("examDate").value = examData.examDate || "";
+            document.getElementById("examNameError").classList.add("hidden");
+            document.getElementById("teacherName").textContent =
+              examData.teacherName || "أ/ فاطمة ريان";
+
+            if (examData.questions.length > 0) {
+              examState.nextQuestionId =
+                Math.max(...examData.questions.map((q) => q.id)) + 1;
+            } else {
+              examState.nextQuestionId = 1;
+            }
+
+            updateExamHeader();
+            renderQuestions();
+            return true;
+          }
+
+          return false;
+        },
+
+        deleteExam: function (examName) {
+          const savedExams = JSON.parse(localStorage.getItem("exams")) || {};
+
+          if (savedExams[examName]) {
+            delete savedExams[examName];
+            localStorage.setItem("exams", JSON.stringify(savedExams));
+            this.loadExamsList();
+            return true;
+          }
+
+          return false;
+        },
+
+        getAllExams: function () {
+          return JSON.parse(localStorage.getItem("exams")) || {};
+        },
+
+        loadExamsList: function () {
+          const savedExams = this.getAllExams();
+          const examsListEl = document.getElementById("savedExamsList");
+          const searchTerm = document
+            .getElementById("searchExam")
+            .value.toLowerCase();
+
+          examsListEl.innerHTML = "";
+
+          if (Object.keys(savedExams).length === 0) {
+            examsListEl.innerHTML =
+              '<p class="text-gray-500 text-center py-4">لا توجد امتحانات محفوظة</p>';
+            return;
+          }
+
+          const filteredExams = Object.entries(savedExams).filter(
+            ([name, data]) => {
+              return name.toLowerCase().includes(searchTerm);
+            }
+          );
+
+          if (filteredExams.length === 0) {
+            examsListEl.innerHTML =
+              '<p class="text-gray-500 text-center py-4">لا توجد امتحانات تطابق البحث</p>';
+            return;
+          }
+
+          filteredExams.forEach(([name, data]) => {
+            const examItem = document.createElement("div");
+            examItem.className =
+              "flex justify-between items-center bg-gray-50 hover:bg-gray-100 p-3 rounded-lg transition duration-200";
+
+            const date = new Date(data.lastModified);
+            const formattedDate = date.toLocaleDateString("ar-SA");
+
+            const mcqCount = data.questions.filter(
+              (q) => q.type === "mcq"
+            ).length;
+            const essayCount = data.questions.filter(
+              (q) => q.type === "essay"
+            ).length;
+
+            examItem.innerHTML = `
+                        <div class="flex-1">
+                            <h4 class="font-medium text-gray-800">${name}</h4>
+                            <p class="text-xs text-gray-500">${formattedDate} - ${mcqCount} MCQ, ${essayCount} مقالي - ${data.duration} دقيقة</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="load-exam-btn p-2 text-blue-600 hover:text-blue-800" data-exam="${name}" title="تحميل">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                            <button class="delete-exam-btn p-2 text-red-600 hover:text-red-800" data-exam="${name}" title="حذف">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+
+            examsListEl.appendChild(examItem);
+          });
+
+          document.querySelectorAll(".load-exam-btn").forEach((btn) => {
+            btn.addEventListener("click", function () {
+              const examName = this.getAttribute("data-exam");
+              storageManager.loadExam(examName);
+              showMessage(`تم تحميل الامتحان "${examName}"`, "success");
+            });
+          });
+
+          document.querySelectorAll(".delete-exam-btn").forEach((btn) => {
+            btn.addEventListener("click", function () {
+              const examName = this.getAttribute("data-exam");
+
+              if (confirm(`هل أنت متأكد من حذف الامتحان "${examName}"؟`)) {
+                storageManager.deleteExam(examName);
+                showMessage(`تم حذف الامتحان "${examName}"`, "success");
+              }
+            });
+          });
+        },
+      };
+
+      // ============================================
+      // Question Management
+      // ============================================
+      const questionManager = {
+        createQuestion: function (type = "mcq") {
+          const questionId = examState.nextQuestionId++;
+
+          const newQuestion = {
+            id: questionId,
+            type: type,
+            mcqType: "text",
+            text: "سؤال جديد",
+            points: 1,
+            image: null,
+            imageSize: { width: 300, height: 200 },
+            choices:
+              type === "mcq"
+                ? [
+                    {
+                      id: 1,
+                      text: "الخيار الأول",
+                      image: null,
+                      imageSize: { width: 200, height: 150 },
+                    },
+                    {
+                      id: 2,
+                      text: "الخيار الثاني",
+                      image: null,
+                      imageSize: { width: 200, height: 150 },
+                    },
+                    {
+                      id: 3,
+                      text: "الخيار الثالث",
+                      image: null,
+                      imageSize: { width: 200, height: 150 },
+                    },
+                    {
+                      id: 4,
+                      text: "الخيار الرابع",
+                      image: null,
+                      imageSize: { width: 200, height: 150 },
+                    },
+                  ]
+                : [],
+          };
+
+          examState.questions.push(newQuestion);
+
+          return newQuestion;
+        },
+
+        deleteQuestion: function (questionId) {
+          const index = examState.questions.findIndex(
+            (q) => q.id === questionId
+          );
+          if (index !== -1) {
+            examState.questions.splice(index, 1);
+            return true;
+          }
+          return false;
+        },
+
+        clearAllQuestions: function () {
+          examState.questions = [];
+          examState.nextQuestionId = 1;
+          return true;
+        },
+
+        changeQuestionType: function (questionId, newType) {
+          const question = examState.questions.find((q) => q.id === questionId);
+
+          if (question) {
+            question.type = newType;
+
+            if (newType === "mcq" && question.choices.length === 0) {
+              question.mcqType = "text";
+              question.choices = [
+                {
+                  id: 1,
+                  text: "الخيار الأول",
+                  image: null,
+                  imageSize: { width: 200, height: 150 },
+                },
+                {
+                  id: 2,
+                  text: "الخيار الثاني",
+                  image: null,
+                  imageSize: { width: 200, height: 150 },
+                },
+                {
+                  id: 3,
+                  text: "الخيار الثالث",
+                  image: null,
+                  imageSize: { width: 200, height: 150 },
+                },
+                {
+                  id: 4,
+                  text: "الخيار الرابع",
+                  image: null,
+                  imageSize: { width: 200, height: 150 },
+                },
+              ];
+            }
+
+            return true;
+          }
+
+          return false;
+        },
+
+        changeMCQType: function (questionId, newMCQType) {
+          const question = examState.questions.find((q) => q.id === questionId);
+
+          if (question && question.type === "mcq") {
+            question.mcqType = newMCQType;
+
+            if (newMCQType === "text") {
+              question.choices.forEach((choice) => {
+                if (choice.text === "") {
+                  const choiceLetters = ["أ", "ب", "ج", "د"];
+                  choice.text = `الخيار ${choiceLetters[choice.id - 1]}`;
+                }
+              });
+            } else {
+              question.choices.forEach((choice) => {
+                choice.text = "";
+              });
+            }
+
+            return true;
+          }
+
+          return false;
+        },
+
+        updateQuestionText: function (questionId, newText) {
+          const question = examState.questions.find((q) => q.id === questionId);
+          if (question) {
+            question.text = newText;
+            return true;
+          }
+          return false;
+        },
+
+        updateChoiceText: function (questionId, choiceId, newText) {
+          const question = examState.questions.find((q) => q.id === questionId);
+          if (question) {
+            const choice = question.choices.find((c) => c.id === choiceId);
+            if (choice) {
+              choice.text = newText;
+              return true;
+            }
+          }
+          return false;
+        },
+
+        addImage: function (
+          questionId,
+          target,
+          imageUrl,
+          imageSize = { width: 300, height: 200 }
+        ) {
+          const question = examState.questions.find((q) => q.id === questionId);
+
+          if (!question) return false;
+
+          if (target === "question") {
+            question.image = imageUrl;
+            question.imageSize = imageSize;
+            return true;
+          } else {
+            const choice = question.choices.find(
+              (c) => c.id === parseInt(target)
+            );
+            if (choice) {
+              choice.image = imageUrl;
+              choice.imageSize = imageSize;
+              return true;
+            }
+          }
+
+          return false;
+        },
+
+        updateImageSize: function (questionId, target, newSize) {
+          const question = examState.questions.find((q) => q.id === questionId);
+
+          if (!question) return false;
+
+          if (target === "question") {
+            question.imageSize = newSize;
+            return true;
+          } else {
+            const choice = question.choices.find(
+              (c) => c.id === parseInt(target)
+            );
+            if (choice) {
+              choice.imageSize = newSize;
+              return true;
+            }
+          }
+
+          return false;
+        },
+      };
+
+      // ============================================
+      // UI Rendering
+      // ============================================
+      const uiRenderer = {
+        renderQuestions: function () {
+          // التحقق من وجود العناصر الأساسية
+          const mcqContainer = document.getElementById("mcqQuestionsContainer");
+          if (!mcqContainer) {
+            console.error("Element #mcqQuestionsContainer not found");
+            return;
+          }
+
+          const essayContainer = document.getElementById(
+            "essayQuestionsContainer"
+          );
+          const essaySection = document.getElementById("essayQuestionsSection");
+          const emptyState = document.getElementById("emptyState");
+
+          // فصل الأسئلة إلى MCQ و Essay
+          const mcqQuestions = examState.questions.filter(
+            (q) => q.type === "mcq"
+          );
+          const essayQuestions = examState.questions.filter(
+            (q) => q.type === "essay"
+          );
+
+          // تحديث العدادات
+          document.getElementById("questionCount").textContent =
+            examState.questions.length;
+          document.getElementById("mcqCount").textContent = mcqQuestions.length;
+          document.getElementById("essayCount").textContent =
+            essayQuestions.length;
+
+          // حالة فارغة
+          if (examState.questions.length === 0) {
+            if (emptyState) emptyState.classList.remove("hidden");
+            if (essaySection) essaySection.classList.add("hidden");
+            mcqContainer.innerHTML = "";
+            return;
+          } else {
+            if (emptyState) emptyState.classList.add("hidden");
+          }
+
+          // عرض أسئلة MCQ
+          if (mcqQuestions.length > 0) {
+            mcqContainer.innerHTML = "";
+            mcqQuestions.forEach((question, index) => {
+              const questionEl = this.renderMCQQuestion(question, index + 1);
+              mcqContainer.appendChild(questionEl);
+            });
+          } else {
+            mcqContainer.innerHTML =
+              '<p class="text-gray-500 text-center py-4">لا توجد أسئلة MCQ</p>';
+          }
+
+          // عرض أسئلة Essay
+          if (essayQuestions.length > 0) {
+            if (essaySection) essaySection.classList.remove("hidden");
+            if (essayContainer) {
+              essayContainer.innerHTML = "";
+              essayQuestions.forEach((question, index) => {
+                const questionEl = this.renderEssayQuestion(
+                  question,
+                  index + 1
+                );
+                essayContainer.appendChild(questionEl);
+              });
+            }
+          } else {
+            if (essaySection) essaySection.classList.add("hidden");
+          }
+
+          this.initializeImageResize();
+        },
+
+        renderMCQQuestion: function (question, number) {
+          const questionEl = document.createElement("div");
+          questionEl.className =
+            "question-container border-b-2 border-gray-300 print:border-b-0 border-b-2 border-gray-300 print:border-b-0 fade-in";
+          questionEl.setAttribute("data-question-id", question.id);
+
+          let questionHtml = `
+                    <div class="flex items-center mb-3">
+                        <span class="question-number">${number}</span>
+                        <div class="flex-1">
+                            <div class="question-text editable-text text-lg font-medium text-gray-800 p-2 min-h-[40px] cursor-text" data-question-id="${question.id}">
+                                ${question.text}
+                            </div>
+                        </div>
+                        <div class="flex gap-2 no-print">
+                            <button class="change-type-btn p-2 text-blue-600 hover:text-blue-800 rounded-lg" data-question-id="${question.id}" title="تحويل إلى سؤال مقالي">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
+                            <button class="delete-question-btn p-2 text-red-600 hover:text-red-800 rounded-lg" data-question-id="${question.id}" title="حذف السؤال">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+          if (question.image) {
+            questionHtml += `
+                        <div class="mb-3 mr-10 flex justify-center items-center flex-wrap">
+                            <div class="w-full flex justify-between items-center mb-2 no-print">
+                                <span class="text-gray-700 text-sm">صورة السؤال:</span>
+                                <button class="change-image-btn p-1 text-xs text-blue-600 hover:text-blue-800" data-question-id="${question.id}" data-target="question">
+                                    تغيير الصورة
+                                </button>
+                            </div>
+                            <div class="resizable-image inline-block relative" style="width: ${question.imageSize.width}px; height: ${question.imageSize.height}px;" data-question-id="${question.id}" data-target="question">
+                                <img src="${question.image}" alt="صورة السؤال" class="w-full h-full object-contain border border-gray-300 rounded">
+                                <div class="resize-handle resize-handle-tl"></div>
+                                <div class="resize-handle resize-handle-tr"></div>
+                                <div class="resize-handle resize-handle-bl"></div>
+                                <div class="resize-handle resize-handle-br"></div>
+                            </div>
+                        </div>
+                    `;
+          } else {
+            questionHtml += `
+                        <div class="mb-3 mr-10 no-print">
+                            <button class="add-image-btn p-2 text-sm text-blue-600 hover:text-blue-800 border border-dashed border-blue-300 rounded-lg" data-question-id="${question.id}" data-target="question">
+                                <i class="fas fa-image ml-2"></i> إضافة صورة للسؤال
+                            </button>
+                        </div>
+                    `;
+          }
+
+          questionHtml += `<div class="choice-container mr-10 mt-3">`;
+
+          questionHtml += `
+                    <div class="flex justify-end mb-2 no-print w-full">
+                        <button class="change-mcq-type-btn p-2 text-xs text-blue-600 hover:text-blue-800 border border-blue-300 rounded-lg" data-question-id="${
+                          question.id
+                        }" title="تغيير نوع الخيارات">
+                            <i class="fas fa-exchange-alt ml-1"></i>
+                            ${
+                              question.mcqType === "text"
+                                ? "تحويل خيارات هذا السؤال إلى صور"
+                                : "تحويل خيارات هذا السؤال إلى نصوص"
+                            }
+                        </button>
+                    </div>
+                `;
+
+          question.choices.forEach((choice) => {
+            const choiceLetters = ["أ", "ب", "ج", "د"];
+            const choiceLetter = choiceLetters[choice.id - 1] || "أ";
+
+            const isImageChoice = question.mcqType === "image";
+
+            questionHtml += `
+                        <div class="choice-option">
+                            <div class="choice-content">
+                                <span class="choice-letter">${choiceLetter}</span>
+                                
+                                ${
+                                  isImageChoice
+                                    ? `
+                                    <div class="image-choice">
+                                        ${
+                                          choice.image
+                                            ? `
+                                            <div class="resizable-image relative" style="width: ${choice.imageSize.width}px; height: ${choice.imageSize.height}px;" data-question-id="${question.id}" data-target="${choice.id}">
+                                                <img src="${choice.image}" alt="صورة الخيار ${choiceLetter}" class="w-full h-full object-contain">
+                                                <div class="resize-handle resize-handle-tl no-print"></div>
+                                                <div class="resize-handle resize-handle-tr no-print"></div>
+                                                <div class="resize-handle resize-handle-bl no-print"></div>
+                                                <div class="resize-handle resize-handle-br no-print"></div>
+                                            </div>
+                                        `
+                                            : `
+                                            <div class="no-print">
+                                                <button class="add-image-btn p-2 text-xs text-blue-600 hover:text-blue-800 border border-dashed border-blue-300 rounded-lg" data-question-id="${question.id}" data-target="${choice.id}">
+                                                    <i class="fas fa-image ml-1"></i> إضافة صورة
+                                                </button>
+                                            </div>
+                                        `
+                                        }
+                                        ${
+                                          choice.text
+                                            ? `<div class="text-xs mt-1">${choice.text}</div>`
+                                            : ""
+                                        }
+                                    </div>
+                                `
+                                    : `
+                                    <div class="choice-text editable-text text-gray-700 p-2 rounded-lg min-h-[30px] cursor-text choice-text-only" data-question-id="${
+                                      question.id
+                                    }" data-choice-id="${choice.id}">
+                                        ${
+                                          choice.text ||
+                                          `الخيار ${choiceLetter}`
+                                        }
+                                    </div>
+                                    
+                                    ${
+                                      choice.image
+                                        ? `
+                                        <div class="image-choice mr-2">
+                                            <div class="resizable-image relative" style="width: ${choice.imageSize.width}px; height: ${choice.imageSize.height}px;" data-question-id="${question.id}" data-target="${choice.id}">
+                                                <img src="${choice.image}" alt="صورة الخيار ${choiceLetter}" class="w-full h-full object-contain">
+                                                <div class="resize-handle resize-handle-tl no-print"></div>
+                                                <div class="resize-handle resize-handle-tr no-print"></div>
+                                                <div class="resize-handle resize-handle-bl no-print"></div>
+                                                <div class="resize-handle resize-handle-br no-print"></div>
+                                            </div>
+                                        </div>
+                                    `
+                                        : `
+                                        <div class="no-print mr-2 hidden">
+                                            <button class="add-image-btn p-1 text-xs text-blue-600 hover:text-blue-800 border border-dashed border-blue-300 rounded-lg" data-question-id="${question.id}" data-target="${choice.id}">
+                                                <i class="fas fa-image ml-1"></i>
+                                            </button>
+                                        </div>
+                                    `
+                                    }
+                                `
+                                }
+                            </div>
+                            ${
+                              choice.image && isImageChoice
+                                ? `
+                                <div class="no-print mr-2">
+                                    <button class="change-image-btn p-1 text-xs text-blue-600 hover:text-blue-800" data-question-id="${question.id}" data-target="${choice.id}">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </button>
+                                </div>
+                            `
+                                : ""
+                            }
+                        </div>
+                    `;
+          });
+
+          questionHtml += `</div>`;
+
+          questionEl.innerHTML = questionHtml;
+          return questionEl;
+        },
+
+        renderEssayQuestion: function (question, number) {
+          const questionEl = document.createElement("div");
+          questionEl.className =
+            "question-container border-b-2 border-gray-300 print:border-b-0 fade-in";
+          questionEl.setAttribute("data-question-id", question.id);
+
+          let questionHtml = `
+                    <div class="flex items-baseline mb-4">
+                        <span class="essay-question-number">${number}</span>
+                        <div class="flex-1">
+                            <div class="question-text editable-text text-lg font-medium text-gray-800 p-2 min-h-[50px] cursor-text" data-question-id="${question.id}">
+                                ${question.text}
+                            </div>
+                        </div>
+                        <div class="flex gap-2 no-print">
+                            <button class="change-type-btn p-2 text-blue-600 hover:text-blue-800 rounded-lg" data-question-id="${question.id}" title="تحويل إلى سؤال MCQ">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
+                            <button class="delete-question-btn p-2 text-red-600 hover:text-red-800 rounded-lg" data-question-id="${question.id}" title="حذف السؤال">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+          if (question.image) {
+            questionHtml += `
+                        <div class="mb-4 mr-10">
+                            <div class="flex justify-between items-center mb-2 no-print">
+                                <span class="text-gray-700 text-sm">صورة السؤال:</span>
+                                <button class="change-image-btn p-1 text-xs text-blue-600 hover:text-blue-800" data-question-id="${question.id}" data-target="question">
+                                    تغيير الصورة
+                                </button>
+                            </div>
+                            <div class="resizable-image inline-block relative" style="width: ${question.imageSize.width}px; height: ${question.imageSize.height}px;" data-question-id="${question.id}" data-target="question">
+                                <img src="${question.image}" alt="صورة السؤال" class="w-full h-full object-contain border border-gray-300 rounded">
+                                <div class="resize-handle resize-handle-tl"></div>
+                                <div class="resize-handle resize-handle-tr"></div>
+                                <div class="resize-handle resize-handle-bl"></div>
+                                <div class="resize-handle resize-handle-br"></div>
+                            </div>
+                        </div>
+                    `;
+          } else {
+            questionHtml += `
+                        <div class="mb-4 mr-10 no-print">
+                            <button class="add-image-btn p-2 text-sm text-blue-600 hover:text-blue-800 border border-dashed border-blue-300 rounded-lg" data-question-id="${question.id}" data-target="question">
+                                <i class="fas fa-image ml-2"></i> إضافة صورة للسؤال
+                            </button>
+                        </div>
+                    `;
+          }
+
+          questionHtml += `
+                    <div class="answer-area hidden print:block mt-6 mr-10">
+                        <div class="rounded-lg p-4 min-h-[200px] bg-gray-50">
+                            <!-- Empty answer area for printing -->
+                        </div>
+                    </div>
+                `;
+
+          questionEl.innerHTML = questionHtml;
+          return questionEl;
+        },
+
+        initializeImageResize: function () {
+          document.querySelectorAll(".resizable-image").forEach((resizable) => {
+            const handles = resizable.querySelectorAll(".resize-handle");
+            let isResizing = false;
+            let currentHandle = null;
+            let startX, startY, startWidth, startHeight;
+
+            handles.forEach((handle) => {
+              handle.addEventListener("mousedown", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                isResizing = true;
+                currentHandle = this;
+                startX = e.clientX;
+                startY = e.clientY;
+
+                const style = window.getComputedStyle(resizable);
+                startWidth = parseInt(style.width, 10);
+                startHeight = parseInt(style.height, 10);
+
+                document.addEventListener("mousemove", handleMouseMove);
+                document.addEventListener("mouseup", handleMouseUp);
+              });
+            });
+
+            function handleMouseMove(e) {
+              if (!isResizing) return;
+
+              const dx = e.clientX - startX;
+              const dy = e.clientY - startY;
+
+              const questionId = resizable.getAttribute("data-question-id");
+              const target = resizable.getAttribute("data-target");
+
+              let newWidth = startWidth;
+              let newHeight = startHeight;
+
+              if (currentHandle.classList.contains("resize-handle-br")) {
+                newWidth = startWidth + dx;
+                newHeight = startHeight + dy;
+              } else if (currentHandle.classList.contains("resize-handle-bl")) {
+                newWidth = startWidth - dx;
+                newHeight = startHeight + dy;
+              } else if (currentHandle.classList.contains("resize-handle-tr")) {
+                newWidth = startWidth + dx;
+                newHeight = startHeight - dy;
+              } else if (currentHandle.classList.contains("resize-handle-tl")) {
+                newWidth = startWidth - dx;
+                newHeight = startHeight - dy;
+              }
+
+              if (examState.isCtrlPressed) {
+                const aspectRatio = startWidth / startHeight;
+
+                if (
+                  currentHandle.classList.contains("resize-handle-br") ||
+                  currentHandle.classList.contains("resize-handle-tl")
+                ) {
+                  newHeight = newWidth / aspectRatio;
+                } else if (
+                  currentHandle.classList.contains("resize-handle-bl") ||
+                  currentHandle.classList.contains("resize-handle-tr")
+                ) {
+                  newHeight = newWidth / aspectRatio;
+                }
+              }
+
+              newWidth = Math.max(80, newWidth);
+              newHeight = Math.max(60, newHeight);
+
+              resizable.style.width = newWidth + "px";
+              resizable.style.height = newHeight + "px";
+
+              questionManager.updateImageSize(parseInt(questionId), target, {
+                width: newWidth,
+                height: newHeight,
+              });
+            }
+
+            function handleMouseUp() {
+              isResizing = false;
+              currentHandle = null;
+
+              document.removeEventListener("mousemove", handleMouseMove);
+              document.removeEventListener("mouseup", handleMouseUp);
+            }
+          });
+        },
+      };
+
+      // ============================================
+      // Utility Functions
+      // ============================================
+      function showMessage(message, type = "info") {
+        const existingMessage = document.querySelector(".message-toast");
+        if (existingMessage) {
+          existingMessage.remove();
+        }
+
+        const messageEl = document.createElement("div");
+        messageEl.className = `message-toast fixed top-4 left-4 z-50 p-4 rounded-lg shadow-lg text-white max-w-md ${
+          type === "success" ? "bg-green-600" : "bg-blue-600"
+        }`;
+        messageEl.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i class="fas ${
+                      type === "success" ? "fa-check-circle" : "fa-info-circle"
+                    }"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+        document.body.appendChild(messageEl);
+
+        setTimeout(() => {
+          messageEl.classList.add(
+            "opacity-0",
+            "transition-opacity",
+            "duration-300"
+          );
+          setTimeout(() => {
+            if (messageEl.parentNode) {
+              messageEl.parentNode.removeChild(messageEl);
+            }
+          }, 300);
+        }, 3000);
+      }
+
+      function formatDate(dateString) {
+        if (!dateString) return "";
+
+        const date = new Date(dateString);
+        return date.toLocaleDateString("ar-SA", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }
+
+      function updateExamHeader() {
+        document.getElementById("examTitleDisplay").textContent =
+          examState.name || "امتحان جديد";
+        document.getElementById("durationDisplay").textContent =
+          examState.duration;
+        document.getElementById("totalMarksDisplay").textContent =
+          examState.totalMarks;
+
+        if (examState.examDate) {
+          document.getElementById("currentDateDisplay").textContent =
+            formatDate(examState.examDate);
+        } else {
+          const currentDate = new Date().toLocaleDateString("ar-SA", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+          document.getElementById("currentDateDisplay").textContent =
+            currentDate;
+        }
+      }
+
+      // ============================================
+      // Event Handlers
+      // ============================================
+      function setupEventListeners() {
+        document
+          .getElementById("examName")
+          .addEventListener("input", function () {
+            examState.name = this.value;
+            document.getElementById("examNameError").classList.add("hidden");
+            updateExamHeader();
+          });
+
+        document
+          .getElementById("examDuration")
+          .addEventListener("input", function () {
+            examState.duration = parseInt(this.value) || 90;
+            updateExamHeader();
+          });
+
+        document
+          .getElementById("examTotalMarks")
+          .addEventListener("input", function () {
+            examState.totalMarks = parseInt(this.value) || 50;
+            updateExamHeader();
+          });
+
+        document
+          .getElementById("examDate")
+          .addEventListener("change", function () {
+            examState.examDate = this.value;
+            updateExamHeader();
+          });
+
+        document
+          .getElementById("addQuestionBtn")
+          .addEventListener("click", function () {
+            questionManager.createQuestion();
+            uiRenderer.renderQuestions();
+            showMessage("تم إضافة سؤال جديد", "success");
+          });
+
+        document
+          .getElementById("saveExamBtn")
+          .addEventListener("click", function () {
+            if (storageManager.saveExam()) {
+              showMessage(`تم حفظ الامتحان "${examState.name}"`, "success");
+            }
+          });
+
+        document
+          .getElementById("printExamBtn")
+          .addEventListener("click", function () {
+            document.getElementById("printExamName").textContent =
+              examState.name || "امتحان بدون عنوان";
+
+            if (examState.examDate) {
+              document.getElementById("printDate").textContent = formatDate(
+                examState.examDate
+              );
+            } else {
+              document.getElementById("printDate").textContent =
+                new Date().toLocaleDateString("ar-SA");
+            }
+
+            document.getElementById("printDuration").textContent =
+              examState.duration;
+            document.getElementById("printTotalMarks").textContent =
+              examState.totalMarks;
+            document.getElementById("printTeacherName").textContent =
+              examState.teacherName;
+
+            document
+              .getElementById("examPrintHeader")
+              .classList.remove("hidden");
+            document.getElementById("examEditHeader").classList.add("hidden");
+
+            window.print();
+
+            setTimeout(() => {
+              document
+                .getElementById("examPrintHeader")
+                .classList.add("hidden");
+              document
+                .getElementById("examEditHeader")
+                .classList.remove("hidden");
+            }, 100);
+          });
+
+        document
+          .getElementById("clearAllBtn")
+          .addEventListener("click", function () {
+            if (examState.questions.length === 0) {
+              showMessage("لا توجد أسئلة لحذفها", "info");
+              return;
+            }
+
+            if (
+              confirm(
+                `هل أنت متأكد من حذف جميع الأسئلة (${examState.questions.length} سؤال)؟`
+              )
+            ) {
+              questionManager.clearAllQuestions();
+              uiRenderer.renderQuestions();
+              showMessage("تم حذف جميع الأسئلة", "success");
+            }
+          });
+
+        document
+          .getElementById("searchExam")
+          .addEventListener("input", function () {
+            storageManager.loadExamsList();
+          });
+
+        document
+          .getElementById("closeImageModal")
+          .addEventListener("click", closeImageModal);
+        document
+          .getElementById("cancelImageBtn")
+          .addEventListener("click", closeImageModal);
+        document
+          .getElementById("addImageBtn")
+          .addEventListener("click", addImageFromModal);
+
+        document
+          .getElementById("imageFileInput")
+          .addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (file) {
+              const imageUrl = URL.createObjectURL(file);
+              document.getElementById("imageUrlInput").value = imageUrl;
+            }
+          });
+
+        document
+          .getElementById("teacherName")
+          .addEventListener("dblclick", function () {
+            const currentName = this.textContent;
+            const input = document.createElement("input");
+            input.type = "text";
+            input.className =
+              "w-full p-2 border border-blue-400 rounded-lg rtl-input";
+            input.value = currentName;
+
+            this.innerHTML = "";
+            this.appendChild(input);
+            input.focus();
+
+            input.addEventListener("blur", function () {
+              const newName = this.value.trim() || "أ/ فاطمة ريان";
+              examState.teacherName = newName;
+              document.getElementById("teacherName").textContent = newName;
+            });
+
+            input.addEventListener("keydown", function (e) {
+              if (e.key === "Enter") {
+                this.blur();
+              }
+            });
+          });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Control") {
+            examState.isCtrlPressed = true;
+          }
+        });
+
+        document.addEventListener("keyup", function (e) {
+          if (e.key === "Control") {
+            examState.isCtrlPressed = false;
+          }
+        });
+
+        document.addEventListener("click", function (e) {
+          if (e.target.closest(".delete-question-btn")) {
+            const btn = e.target.closest(".delete-question-btn");
+            const questionId = parseInt(btn.getAttribute("data-question-id"));
+
+            if (confirm("هل أنت متأكد من حذف هذا السؤال؟")) {
+              questionManager.deleteQuestion(questionId);
+              uiRenderer.renderQuestions();
+              showMessage("تم حذف السؤال", "success");
+            }
+          } else if (e.target.closest(".change-type-btn")) {
+            const btn = e.target.closest(".change-type-btn");
+            const questionId = parseInt(btn.getAttribute("data-question-id"));
+            const question = examState.questions.find(
+              (q) => q.id === questionId
+            );
+
+            if (question) {
+              const newType = question.type === "mcq" ? "essay" : "mcq";
+              questionManager.changeQuestionType(questionId, newType);
+              uiRenderer.renderQuestions();
+              showMessage(
+                `تم تغيير نوع السؤال إلى ${
+                  newType === "mcq" ? "اختيار من متعدد" : "مقالي"
+                }`,
+                "success"
+              );
+            }
+          } else if (e.target.closest(".change-mcq-type-btn")) {
+            const btn = e.target.closest(".change-mcq-type-btn");
+            const questionId = parseInt(btn.getAttribute("data-question-id"));
+            const question = examState.questions.find(
+              (q) => q.id === questionId
+            );
+
+            if (question && question.type === "mcq") {
+              const newType = question.mcqType === "text" ? "image" : "text";
+              questionManager.changeMCQType(questionId, newType);
+              uiRenderer.renderQuestions();
+              showMessage(
+                `تم تغيير نوع خيارات السؤال إلى ${
+                  newType === "text" ? "نصوص فقط" : "صور فقط"
+                }`,
+                "success"
+              );
+            }
+          } else if (e.target.closest(".add-image-btn")) {
+            const btn = e.target.closest(".add-image-btn");
+            examState.currentImageTarget = {
+              questionId: parseInt(btn.getAttribute("data-question-id")),
+              target: btn.getAttribute("data-target"),
+            };
+
+            openImageModal();
+          } else if (e.target.closest(".change-image-btn")) {
+            const btn = e.target.closest(".change-image-btn");
+            examState.currentImageTarget = {
+              questionId: parseInt(btn.getAttribute("data-question-id")),
+              target: btn.getAttribute("data-target"),
+            };
+
+            openImageModal();
+          }
+        });
+
+        document.addEventListener("dblclick", function (e) {
+          if (e.target.classList.contains("question-text")) {
+            const questionId = parseInt(
+              e.target.getAttribute("data-question-id")
+            );
+            const question = examState.questions.find(
+              (q) => q.id === questionId
+            );
+
+            if (question) {
+              const input = document.createElement("textarea");
+              input.className =
+                "w-full p-2 border border-blue-400 rounded-lg rtl-input focus:ring-2 focus:ring-blue-500";
+              input.value = question.text;
+              input.rows = 2;
+
+              e.target.innerHTML = "";
+              e.target.appendChild(input);
+              input.focus();
+
+              input.addEventListener("blur", function () {
+                const newText = this.value.trim() || "سؤال جديد";
+                questionManager.updateQuestionText(questionId, newText);
+                uiRenderer.renderQuestions();
+              });
+
+              input.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" && e.ctrlKey) {
+                  this.blur();
+                }
+              });
+            }
+          } else if (e.target.classList.contains("choice-text")) {
+            const questionId = parseInt(
+              e.target.getAttribute("data-question-id")
+            );
+            const choiceId = parseInt(e.target.getAttribute("data-choice-id"));
+
+            const question = examState.questions.find(
+              (q) => q.id === questionId
+            );
+            if (question) {
+              const choice = question.choices.find((c) => c.id === choiceId);
+
+              if (choice) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.className =
+                  "w-full p-1 border border-blue-400 rounded-lg rtl-input";
+                input.value = choice.text;
+
+                e.target.innerHTML = "";
+                e.target.appendChild(input);
+                input.focus();
+
+                input.addEventListener("blur", function () {
+                  const newText = this.value.trim();
+                  questionManager.updateChoiceText(
+                    questionId,
+                    choiceId,
+                    newText
+                  );
+                  uiRenderer.renderQuestions();
+                });
+
+                input.addEventListener("keydown", function (e) {
+                  if (e.key === "Enter") {
+                    this.blur();
+                  }
+                });
+              }
+            }
+          }
+        });
+      }
+
+      // ============================================
+      // Image Modal Functions
+      // ============================================
+      function openImageModal() {
+        document.getElementById("imageUploadModal").classList.remove("hidden");
+        document.getElementById("imageUrlInput").value = "";
+        document.getElementById("imageFileInput").value = "";
+      }
+
+      function closeImageModal() {
+        document.getElementById("imageUploadModal").classList.add("hidden");
+        examState.currentImageTarget = null;
+      }
+
+      function addImageFromModal() {
+        const imageUrl = document.getElementById("imageUrlInput").value.trim();
+
+        if (!imageUrl) {
+          alert("الرجاء إدخال رابط الصورة أو اختيار صورة من الجهاز");
+          return;
+        }
+
+        try {
+          new URL(imageUrl);
+        } catch (e) {
+          alert("الرجاء إدخال رابط صحيح للصورة");
+          return;
+        }
+
+        if (examState.currentImageTarget) {
+          const { questionId, target } = examState.currentImageTarget;
+
+          const defaultSize =
+            target === "question"
+              ? { width: 300, height: 200 }
+              : { width: 150, height: 100 };
+
+          questionManager.addImage(questionId, target, imageUrl, defaultSize);
+          uiRenderer.renderQuestions();
+          showMessage("تم إضافة الصورة", "success");
+          closeImageModal();
+        }
+      }
+
+      // ============================================
+      // Initialize Application
+      // ============================================
+      function initApp() {
+        const today = new Date();
+        const formattedToday = today.toISOString().split("T")[0];
+        document.getElementById("examDate").value = formattedToday;
+        examState.examDate = formattedToday;
+
+        document.getElementById("examName").value = examState.name;
+        document.getElementById("examDuration").value = examState.duration;
+        document.getElementById("examTotalMarks").value = examState.totalMarks;
+        document.getElementById("teacherName").textContent =
+          examState.teacherName;
+
+        updateExamHeader();
+        storageManager.loadExamsList();
+        setupEventListeners();
+        uiRenderer.renderQuestions();
+      }
+
+      // ============================================
+      // Start the application when page loads
+      // ============================================
+      document.addEventListener("DOMContentLoaded", initApp);
+
+      function renderQuestions() {
+        uiRenderer.renderQuestions();
+      }
+    </script>
+  </body>
+</html>
