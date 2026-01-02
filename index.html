@@ -1764,6 +1764,22 @@
                   if (e.key === "Enter") {
                     this.blur();
                   }
+                  if (e.key === "Tab") {
+                    e.preventDefault();
+
+                    const wrapper =
+                      e.target.parentElement?.parentElement?.parentElement;
+
+                    const el = e.shiftKey
+                      ? wrapper?.previousElementSibling?.children?.[0]
+                      : wrapper?.nextElementSibling?.children?.[0];
+
+                    if (!el) return;
+
+                    el.dispatchEvent(
+                      new MouseEvent("dblclick", { bubbles: true })
+                    );
+                  }
                 });
               }
             }
@@ -1847,3 +1863,4 @@
     </script>
   </body>
 </html>
+
